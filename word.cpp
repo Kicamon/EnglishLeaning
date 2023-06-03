@@ -8,7 +8,7 @@ Word::Word()
 
 void Word::BeforStudy() // 学习开始前的准备阶段
 {
-    std::string wordpad = this->path + "/MyWords.csv";
+    std::string wordpad = this->path + "/MyWords.txt";
     std::cout << wordpad << std::endl;
     std::ifstream fin(wordpad, std::ios::in); // 读取存储数据的文件
     std::string data;
@@ -123,7 +123,7 @@ void Word::Study() // 正式学习
 
 void Word::UpdataWordsList() // 更新单词列表
 {
-    std::string wordpad = this->path + "/MyWords.csv";
+    std::string wordpad = this->path + "/MyWords.txt";
     std::ofstream fout;
     fout.open(wordpad);
     for (auto InputWords : this->AllWords)
