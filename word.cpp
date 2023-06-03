@@ -2,12 +2,15 @@
 
 Word::Word()
 {
-    BeforStudy();
+    this->path = "/home/KicamonIce/Documents/project/cpp/English study";
+    this->BeforStudy();
 }
 
 void Word::BeforStudy() // 学习开始前的准备阶段
 {
-    std::ifstream fin("MyWords.csv", std::ios::in); // 读取存储数据的文件
+    std::string wordpad = this->path + "/MyWords.csv";
+    std::cout << wordpad << std::endl;
+    std::ifstream fin(wordpad, std::ios::in); // 读取存储数据的文件
     std::string data;
     while (fin >> data) // 将所有的单词读入
     {
@@ -72,10 +75,10 @@ void Word::Study() // 正式学习
         std::cout << "y[yes]/n[no]" << std::endl;
         char choose;
         std::cin >> choose;
+        std::cout << std::endl;
         std::cout << "anwser: " << temp[1] << std::endl;
         if (choose == 'y')
         {
-            std::cout << std::endl;
             std::cout << "Are you right?" << std::endl;
             std::cout << "y[yes]/n[no]" << std::endl;
             std::cin >> choose;
@@ -120,8 +123,9 @@ void Word::Study() // 正式学习
 
 void Word::UpdataWordsList() // 更新单词列表
 {
+    std::string wordpad = this->path + "/MyWords.csv";
     std::ofstream fout;
-    fout.open("MyWords.csv");
+    fout.open(wordpad);
     for (auto InputWords : this->AllWords)
         fout << InputWords[0] << '.' << InputWords[1] << '.' << InputWords[2] << '.' << std::endl;
 }

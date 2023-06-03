@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -15,6 +16,7 @@ class Word
 {
   public:
     Word();
+
     void BeforStudy();
     void Menu();
     void Study();
@@ -22,5 +24,7 @@ class Word
 
     int NumberForStudy;
     std::vector<std::array<std::string, 3>> AllWords;
+    std::string path;
+
     ~Word();
 };
