@@ -9,7 +9,6 @@ Word::Word()
 void Word::BeforStudy() // 学习开始前的准备阶段
 {
     std::string wordpad = this->path + "/MyWords.txt";
-    std::cout << wordpad << std::endl;
     std::ifstream fin(wordpad, std::ios::in); // 读取存储数据的文件
     std::string data;
     while (fin >> data) // 将所有的单词读入
@@ -40,8 +39,18 @@ void Word::BeforStudy() // 学习开始前的准备阶段
 
 void Word::Menu() // 开始菜单
 {
+    std::cout << "<========>" << std::endl;
+    std::cout << "There are " << this->AllWords.size() << " words in the wordspad" << std::endl;
+    std::cout << "<========>" << std::endl;
     std::cout << "Input the number for this study: " << std::endl;
-    std::cin >> this->NumberForStudy; // 选择这次要学习的单词/句子的数量
+    std::cin >> this->NumberForStudy; // 选择这次要学习的单词的数量
+    if (this->NumberForStudy > (int)this->AllWords.size())
+    {
+        std::system("clear");
+        std::cout << "Please enter a number less then the number of words in your wordpad" << std::endl;
+        this->Menu();
+        return;
+    }
     std::cout << "============== Star =============" << std::endl;
     std::system("clear");
 }
@@ -86,11 +95,11 @@ void Word::Study() // 正式学习
             {
                 std::cout << "Good!" << std::endl << std::endl;
                 int t = 0;
-                for (int i = 0; i < (int)temp[2].size(); ++i)
+                bool f = temp[2][0] == '-';
+                for (int i = f; i < (int)temp[2].size(); ++i)
                     t = t * 10 + (temp[2][i] - '0');
+                t = -t;
                 t++;
-                if (t > 10)
-                    t = 10;
                 temp[2] = std::to_string(t);
                 LeaningOutcomes.push_back(temp);
             }
@@ -99,13 +108,15 @@ void Word::Study() // 正式学习
         {
             std::cout << "Please remember this word" << std::endl;
             int t = 0;
-            for (int i = 0; i < (int)temp[2].size(); ++i)
+            bool f = temp[2][0] == '-';
+            for (int i = f; i < (int)temp[2].size(); ++i)
                 t = t * 10 + (temp[2][i] - '0');
+            t = -t;
             t--;
-            if (t < 0)
-                t = 0;
             temp[2] = std::to_string(t);
             WordQueue.push(temp);
+            std::cin.get();
+            std::cin.get();
         }
         std::system("clear");
     }
@@ -115,6 +126,10 @@ void Word::Study() // 正式学习
     for (auto wordsleaned : LeaningOutcomes)
     {
         std::cout << number++ << "、" << wordsleaned[0] << ' ' << wordsleaned[1] << std::endl;
+        if (wordsleaned[2][0] == '-' || wordsleaned[2][0] == '0')
+            wordsleaned[2] = "1";
+        else if (wordsleaned[2] > "10")
+            wordsleaned[2] = "10";
         this->AllWords.push_back(wordsleaned);
     }
     std::cout << std::endl;
