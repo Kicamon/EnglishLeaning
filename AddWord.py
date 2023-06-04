@@ -2,7 +2,7 @@
 
 import pyperclip
 
-path = "~/Documents/project/cpp/English study"
+path = "/home/KicamonIce/Documents/project/cpp/English study"
 NewWord = pyperclip.paste()
 
 
