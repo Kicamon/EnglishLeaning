@@ -34,7 +34,21 @@ void Word::BeforStudy() // 学习开始前的准备阶段
     // std::cout << std::endl;
     //}
     std::sort(this->AllWords.begin(), this->AllWords.end(), /*按照熟练度对单词进行排序*/
-              [&](std::array<std::string, 3> worda, std::array<std::string, 3> wordb) { return worda[2] < wordb[2]; });
+              [&](std::array<std::string, 3> worda, std::array<std::string, 3> wordb) {
+                  int t1 = 0;
+                  bool f = worda[2][0] == '-';
+                  for (int i = f; i < (int)worda[2].size(); ++i)
+                      t1 = t1 * 10 + (worda[2][i] - '0');
+                  if (f)
+                      t1 = -t1;
+                  int t2 = 0;
+                  f = worda[2][0] == '-';
+                  for (int i = f; i < (int)worda[2].size(); ++i)
+                      t2 = t2 * 10 + (worda[2][i] - '0');
+                  if (f)
+                      t2 = -t2;
+                  return t1 < t2;
+              });
 }
 
 void Word::Menu() // 开始菜单
@@ -98,7 +112,8 @@ void Word::Study() // 正式学习
                 bool f = temp[2][0] == '-';
                 for (int i = f; i < (int)temp[2].size(); ++i)
                     t = t * 10 + (temp[2][i] - '0');
-                t = -t;
+                if (f)
+                    t = -t;
                 t++;
                 temp[2] = std::to_string(t);
                 LeaningOutcomes.push_back(temp);
@@ -111,7 +126,8 @@ void Word::Study() // 正式学习
             bool f = temp[2][0] == '-';
             for (int i = f; i < (int)temp[2].size(); ++i)
                 t = t * 10 + (temp[2][i] - '0');
-            t = -t;
+            if (f)
+                t = -t;
             t--;
             temp[2] = std::to_string(t);
             WordQueue.push(temp);
@@ -128,7 +144,7 @@ void Word::Study() // 正式学习
         std::cout << number++ << "、" << wordsleaned[0] << ' ' << wordsleaned[1] << std::endl;
         if (wordsleaned[2][0] == '-' || wordsleaned[2][0] == '0')
             wordsleaned[2] = "1";
-        else if (wordsleaned[2] > "10")
+        else if (wordsleaned[2].size() > 1)
             wordsleaned[2] = "10";
         this->AllWords.push_back(wordsleaned);
     }
