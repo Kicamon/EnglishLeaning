@@ -2,7 +2,7 @@
 
 Word::Word()
 {
-    this->path = "/home/KicamonIce/Documents/project/cpp/English study";
+    this->path = "/home/KicamonIce/Documents/study/Note/English";
     this->BeforStudy();
 }
 

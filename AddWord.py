@@ -2,14 +2,14 @@
 
 import pyperclip
 
-path = "/home/KicamonIce/Documents/project/cpp/English study"
+path = "/home/KicamonIce/Documents/study/Note/English/MyWords.txt"
 NewWord = pyperclip.paste()
 
 
-def write_csv(path, newword):
+def write_word(path, newword):
     path += "/MyWords.txt"
     with open(path, 'a+') as f:
         f.writelines(newword)
 
 
-write_csv(path, f"{NewWord}.<++>.1.")
+write_word(path, f"{NewWord}.<++>.1.")
