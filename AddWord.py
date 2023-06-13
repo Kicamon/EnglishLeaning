@@ -13,13 +13,13 @@ def write_word(path, newword):
         while line:
             hadword = ""
             for char in line:
-                if char == '.':
+                if char == '|':
                     break
                 hadword += char
             if hadword == newword:
                 return
             line = f.readline()
-    addstr = f"{newword}.<++>.1."
+    addstr = f"{newword}|<++>|1|"
     with open(path, 'a+') as f:
         f.writelines(addstr+'\n')
 

@@ -12,19 +12,26 @@
 #include <time.h>
 #include <vector>
 
-class Word
+class Learning
 {
   public:
-    Word();
+    Learning();
 
     void BeforStudy();
-    void Menu();
-    void Study();
     void UpdataWordsList();
+    static int ToNumber(std::string num);
 
     int NumberForStudy;
-    std::vector<std::array<std::string, 3>> AllWords;
     std::string path;
+    struct MyLearn
+    {
+        std::string en;
+        std::string ch;
+        int val_stu;
+        int val_test;
+    };
+    std::vector<MyLearn> AllInPad;
+    std::vector<MyLearn> ThisLearn;
 
-    ~Word();
+    ~Learning();
 };
