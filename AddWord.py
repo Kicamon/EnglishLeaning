@@ -19,7 +19,7 @@ def write_word(path, newword):
             if hadword == newword:
                 return
             line = f.readline()
-    addstr = f"{newword}|<++>|1|"
+    addstr = f"{newword}|<++>|1|0|"
     with open(path, 'a+') as f:
         f.writelines(addstr+'\n')
 
