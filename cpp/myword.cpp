@@ -27,21 +27,19 @@ void MyWord::Mune()
 
 void MyWord::Study()
 {
-    int Num = 0;
     std::cout << "Number for this study: ";
-    std::cin >> Num;
+    std::cin >> this->NumberForStudy;
+    std::cin.get();
 
-    for (int i = 0; i < Num;)
+    for (int i = 0; i < this->NumberForStudy;)
     {
-        for (int j = 0; j < 5 && i < Num; ++j, ++i)
+        for (int j = 0; j < 5 && i < this->NumberForStudy; ++j, ++i)
         {
             std::cout << this->AllInPad[i].en << std::endl;
             std::cout << this->AllInPad[i].ch << std::endl << std::endl;
             this->AllInPad[i].val_stu++;
         }
-        if (i == 5)
-            std::cin.get();
-        if (i < Num)
+        if (i < this->NumberForStudy)
             std::cout << "Enter to continue" << std::endl;
         else
             std::cout << "Enter to end" << std::endl;
@@ -51,18 +49,18 @@ void MyWord::Study()
 
 void MyWord::Test()
 {
-    int Num = 0;
     std::cout << "Number for this test: ";
-    std::cin >> Num;
-    std::vector<int> num(Num);
+    std::cin >> this->NumberForStudy;
+    std::vector<int> num(this->NumberForStudy);
     std::iota(num.begin(), num.end(), 0);
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::shuffle(num.begin(), num.end(), std::default_random_engine(seed)); // 对单词进行随机打乱
     for (int idx : num)
         this->ThisLearn.push_back(this->AllInPad[idx]);
-    this->AllInPad.erase(this->AllInPad.begin(), this->AllInPad.begin() + Num);
+    this->AllInPad.erase(this->AllInPad.begin(), this->AllInPad.begin() + this->NumberForStudy);
     std::system("clear");
     std::vector<MyLearn> &tmp1 = this->ThisLearn, tmp2;
+    std::vector<MyLearn> res = this->ThisLearn;
     while (true)
     {
         for (auto &cnt : tmp1)
@@ -96,6 +94,7 @@ void MyWord::Test()
         }
         if (!tmp2.empty())
         {
+            std::shuffle(tmp2.begin(), tmp2.end(), std::default_random_engine(seed)); // 对单词进行随机打乱
             tmp1 = tmp2;
             tmp2.clear();
         }
@@ -105,6 +104,14 @@ void MyWord::Test()
     for (auto cnt : this->ThisLearn)
     {
         this->AllInPad.push_back(cnt);
+    }
+
+    std::cout << "You had test " << this->NumberForStudy << " words this time" << std::endl;
+    std::cout << "Let's see it: " << std::endl;
+    int Num = 1;
+    for (auto out : res)
+    {
+        std::cout << Num++ << "、" << std::endl << out.en << std::endl << out.ch << std::endl << std::endl;
     }
 }
 
