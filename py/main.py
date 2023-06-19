@@ -80,7 +80,7 @@ class Word(Learning):
         tmp2 = []
 
         while len(tmp1) > 0:
-            idx = tmp1.pop([0])
+            idx = tmp1.pop(0)
             print(self.AllMyLearning[idx][0])
             print("Do you now the word's mean?\n")
             print("y[yes]/n[no]")
